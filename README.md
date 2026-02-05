@@ -32,31 +32,56 @@ make
 
 ## Usage Example
 
-```c
-#include "lis3mdl.h"
+```
+./test_lis3mdl 
+=== LIS3MDL Magnetometer Driver Test ===
 
-int main(void)
-{
-    lis3mdl_device_t mag;
-    int16_t x, y, z;
-    
-    // Initialize device
-    lis3mdl_init(&mag, LIS3MDL_ADDR_LOW);
-    
-    // Configure full-scale to ±12 gauss
-    lis3mdl_set_full_scale(&mag, LIS3MDL_FS_12_GAUSS);
-    
-    // Set output data rate to 20 Hz
-    lis3mdl_set_odr(&mag, LIS3MDL_ODR_20_HZ);
-    
-    // Enable interrupts
-    lis3mdl_set_interrupt_enable(&mag, true);
-    
-    // Read magnetic field data
-    lis3mdl_read_xyz(&mag, &x, &y, &z);
-    
-    return 0;
-}
+1. Initializing device...
+read [1] bytes from bus [0x1C] for register [0x0F]
+write [1] bytes to bus [0x1C] for register [0x22]: 0x00 
+read [1] bytes from bus [0x1C] for register [0x21]
+read [1] bytes from bus [0x1C] for register [0x20]
+   Device initialized successfully!
+
+2. Getting full-scale configuration...
+read [1] bytes from bus [0x1C] for register [0x21]
+   Current full-scale: ±4 gauss
+
+3. Setting full-scale to ±12 gauss...
+read [1] bytes from bus [0x1C] for register [0x21]
+write [1] bytes to bus [0x1C] for register [0x21]: 0x40 
+   Full-scale set successfully!
+
+4. Getting output data rate...
+read [1] bytes from bus [0x1C] for register [0x20]
+   Current ODR: 10 Hz
+
+5. Setting output data rate to 20 Hz...
+read [1] bytes from bus [0x1C] for register [0x20]
+write [1] bytes to bus [0x1C] for register [0x20]: 0x14 
+   ODR set successfully!
+
+6. Enabling interrupt pin...
+read [1] bytes from bus [0x1C] for register [0x30]
+write [1] bytes to bus [0x1C] for register [0x30]: 0xE8 
+   Interrupt enabled successfully!
+
+7. Reading X-axis data...
+read [2] bytes from bus [0x1C] for register [0xA8]
+   X-axis: 0 (raw ADC value)
+
+8. Reading all axes (X, Y, Z)...
+read [6] bytes from bus [0x1C] for register [0xA8]
+   X: 0
+   Y: 0
+   Z: 0
+
+9. Disabling interrupt pin...
+read [1] bytes from bus [0x1C] for register [0x30]
+write [1] bytes to bus [0x1C] for register [0x30]: 0xE8 
+   Interrupt disabled successfully!
+
+=== Test Complete ===
 ```
 
 ## API Reference
